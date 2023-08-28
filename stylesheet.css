@@ -6,6 +6,7 @@ body {
 nav {
     display: table;
     width: 100%;
+    background: #ECD;
     border-collapse: collapse;
     table-layout: fixed;
 }
@@ -32,9 +33,21 @@ nav h1 {
     font-size: xx-large;
 }
 
+nav a {
+    color: #000;
+    text-decoration: unset;
+}
+
+nav a:active {
+    color: #FFF;
+    background: #000;
+}
+
 main {
     display: table;
     width: 100%;
+    border-bottom: 3px double #000;
+    background: #CED;
     border-collapse: collapse;
 }
 
@@ -47,22 +60,23 @@ main .right {width: 60%}
 
 main section {
     margin: .5em;
-    box-shadow: 1px 1px 0px 0px #FFFFFF, 2px 2px 0px 0px #000000;
+    box-shadow: 1px 1px 0px 0px #CED, 2px 2px 0px 0px #000;
     border: 1px solid #000;
+    background: #FFF;
 }
 
 main section .title {
     margin: unset;
-    border-bottom: 1px solid #000;
     padding: .1em .5em;
-    background: #A50;
-    color: #FFF;
+    background: #ECD;
+    color: #000;
     font-size: medium;
     text-align: center;
 }
 
 main section article {
-    margin: .5em;
+    border-top: 1px solid #000;
+    padding: .5em;
 }
 
 figure img {
