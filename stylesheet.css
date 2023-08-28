@@ -64,3 +64,7 @@ main section .title {
 main section article {
     margin: .5em;
 }
+
+figure img {
+    max-width: 640px;
+}
