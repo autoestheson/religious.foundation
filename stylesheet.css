@@ -68,3 +68,7 @@ main section article {
 figure img {
     max-width: 640px;
 }
+
+figcaption {
+    font-style: italic;
+}
