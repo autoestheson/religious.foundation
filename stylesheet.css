@@ -90,3 +90,11 @@ figure img {
 figcaption {
     font-style: italic;
 }
+
+dt {
+    font-weight: bold;
+}
+
+dt::after {
+    content: ":";
+}
