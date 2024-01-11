@@ -1,100 +1,62 @@
 body {
-    max-width: 80em;
-    margin: 0 auto;
+    width: 60em;
+    margin: 0px auto;
     background: #FFF;
     color: #000;
+    font-size: large;
+    line-height: 1.6;
+}
+
+header {
+    border-bottom: 3px double #000;
+    background: #DDD;
+}
+header h1 {
+    margin: unset;
+    padding: .1em .5em;
+    text-shadow: 1px 1px 0px #555, -1px -1px 0px #FFF;
 }
 
 nav {
     display: table;
-    width: 100%;
-    background: #EDC;
     border-collapse: collapse;
-    table-layout: fixed;
 }
-
-.nav-row {
-    display: table;
-    width: 100%;
-    border-bottom: 3px double #000;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-nav h1, nav h2, nav h3 {
+nav a {
     display: table-cell;
     padding: .1em .5em;
-    text-align: center;
-}
-
-nav h1, nav h3 {
-    font-variant: small-caps;
-}
-
-nav h1 {
-    font-size: xx-large;
-}
-
-nav a {
-    color: #000;
     text-decoration: unset;
 }
-
-nav a:active {
-    color: #FFF;
-    background: #000;
-}
-
-main {
-    display: table;
-    width: 100%;
-    border-bottom: 3px double #000;
-    background: #DEC;
-    border-collapse: collapse;
-}
-
-main .column {
-    display: table-cell;
-}
-
-main .left {width: 40%}
-main .right {width: 60%}
-
-main section {
-    margin: .5em;
-    box-shadow: 1px 1px 0px 0px #CED, 2px 2px 0px 0px #000;
-    border: 1px solid #000;
-    background: #FFF;
-}
-
-main section .title {
-    margin: unset;
-    padding: .1em .5em;
-    background: #EDC;
+nav a, nav a:visited, nav a:hover, nav a:active {
     color: #000;
-    font-size: medium;
-    text-align: center;
+}
+nav a:hover {
+    background: #CCC;
+}
+nav a:active {
+    background: #AAA;
 }
 
-main section article {
-    border-top: 1px solid #000;
-    padding: .5em;
+p {
+    text-indent: 2em;
 }
 
-figure img {
-    max-width: 320px;
-    box-shadow: 0px 0px 0px 1px #000;
-    border: 1px solid #FFF;
+a, a:visited {
+    color: #00F;
+}
+a:hover {
+    color: #A0A;
+}
+a:active {
+    color: #F00;
 }
 
-figcaption {
-    font-style: italic;
+ul {
+    list-style: none;
+}
+ul li::before {
+    content: "- ";
 }
 
-dt {
-    font-weight: bold;
-}
-
-dt::after {
-    content: ":";
-}
+#ffff9f Pale Lemon Yellow
+#2d4436 Lincoln Green
+Vinaceous Cinnamon
