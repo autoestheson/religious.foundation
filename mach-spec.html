@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Specification</title>
+    <link href="stylesheet.css" rel="stylesheet"/>
+    <link href="icon.png" rel="icon"/>
+    <style>
+        table {border-collapse: collapse}
+        th, td {border: 1px solid #000; padding: .1em .7em}
+        code, .code {font-family: monospace, monospace; font-size: 12px}
+    </style>
+</head>
+<body>
+    <h1>Machine Specification</h1>
+    <p><b>Me</b>: Hey [Unnamed Computer Company], can I copy off your instruction set?</p>
+    <p><b>UCC</b>: Sure. Just be sure to make it look like your own work.</p>
+    <p><b>Me</b>: Alright. Thanks.</p>
+    <p><b>Me</b>:</p>
+    <h2>Instruction Fields</h2>
+    <figure>
+        <figcaption><h3>Condition codes</h3></figcaption>
+        <table class="code">
+            <tr><th>cccc</th><th colspan="3">Name</th><th>Condition</th><th colspan="3">Description</th></tr>
+            <tr><td>0000</td><td>-nc</td><td>-pl</td><td>-nmi</td><td>0==NF</td><td>Negative flag Clear</td><td>PLus</td><td>Not MInus</td></tr>
+            <tr><td>0001</td><td>-zc</td><td></td><td>-neq</td><td>0==ZF</td><td>Zero flag Clear</td><td></td><td>Not EQual</td></tr>
+            <tr><td>0010</td><td>-vc</td><td></td><td>-nov</td><td>0==VF</td><td>oVerflow flag Clear</td><td></td><td>No OVerflow</td></tr>
+            <tr><td>0011</td><td>-cc</td><td>-hs</td><td>-nlo</td><td>0==CF</td><td>Carry flag Clear</td><td>Higher or Same</td><td>not lower</td></tr>
+            <tr><td>0100</td><td></td><td>-hi</td><td>-nls</td><td>0==~CF|ZF</td><td></td><td>HIgher</td><td>not lower or same</td></tr>
+            <tr><td>0101</td><td></td><td>-ge</td><td>-nlt</td><td>0==NF^VF</td><td></td><td>Greater or Equal</td><td>not lesser than</td></tr>
+            <tr><td>0110</td><td></td><td>-gt</td><td>-nle</td><td>0==(NF^VF)|ZF</td><td></td><td>Greater Than</td><td>not lesser or equal</td></tr>
+            <tr><td>0111</td><td>-sr</td><td></td><td></td><td>N/A</td><td colspan="3">to SubRoutine</td></tr>
+            <tr><td>1000</td><td>-ns</td><td>-mi</td><td>-npl</td><td>1==NF</td><td>Negative flag Set</td><td>MInus</td><td>not plus</td></tr>
+            <tr><td>1001</td><td>-zs</td><td>-eq</td><td></td><td>1==ZF</td><td>Zero flag Set</td><td>EQual</td><td></td></tr>
+            <tr><td>1010</td><td>-vs</td><td>-ov</td><td></td><td>1==VF</td><td>oVerflow flag Set</td><td>OVerflow</td><td></td></tr>
+            <tr><td>1011</td><td>-cs</td><td>-lo</td><td>-nhs</td><td>1==CF</td><td>Carry flag Set</td><td>LOwer</td><td>not higher or same</td></tr>
+            <tr><td>1100</td><td></td><td>-ls</td><td>-nhi</td><td>1==~CF|ZF</td><td></td><td>Lower or Same</td><td>not higher</td></tr>
+            <tr><td>1101</td><td></td><td>-lt</td><td>-nge</td><td>1==NF^VF</td><td></td><td>Lesser Than</td><td>not greater or equal</td></tr>
+            <tr><td>1110</td><td></td><td>-le</td><td>-ngt</td><td>1==(NF^VF)|ZF</td><td></td><td>Lesser or Equal</td><td>not greater than</td></tr>
+            <tr><td>1111</td><td>jmp/bra</td><td></td><td></td><td>1==1</td><td colspan=3>always</td></tr>
+        </table>
+    </figure>
+    <figure>
+        <figcaption><h3>Effective Addresses</h3></figcaption>
+        <table class="code">
+            <tr><th>mmmxxx</th><th>Syntax</th><th>Pseudocode</th><th>Description</th></tr>
+            <tr><td>000xxx</td><td>Dx</td><td>D[x]</td><td>Data</td></tr>
+            <tr><td>001xxx</td><td>Ax</td><td>A[x]</td><td>Address</td></tr>
+            <tr><td>010xxx</td><td>@x+</td><td>(s)M[A[x]++]</td><td>post-increment deferred</td></tr>
+            <tr><td>011xxx</td><td>@x-</td><td>(s)M[--A[x]]</td><td>pre-decrement deferred</td></tr>
+            <tr><td>100xxx</td><td>@x</td><td>(s)M[A[x]]</td><td>deferred</td></tr>
+            <tr><td>101xxx</td><td>@x.H#dsp16</td><td>(s)M[A[x]+(H)M[IP++]]</td><td>base plus Halfword deferred</td></tr>
+            <tr><td>110xxx</td><td>@x.W#dsp32</td><td>(s)M[A[x]+(W)M[IP++]]</td><td>base plus Word deferred</td></tr>
+            <tr><td>111000</td><td>$</td><td>SR</td><td>status register</td></tr>
+            <tr><td>111010</td><td>#imm</td><td>(s)M[IP++]</td><td>immediate memory</td></tr>
+            <tr><td>111101</td><td>?H#dsp16</td><td>(s)M[IP+(H)M[IP++]]</td><td>relative Halfword deferred</td></tr>
+            <tr><td>111110</td><td>?W#dsp32</td><td>(s)M[IP+(W)M[IP++]]</td><td>relative Word deferred</td></tr>
+        </table>
+    </figure>
+    <figure>
+        <figcaption><h3>Memory Access Scales</h3></figcaption>
+        <table class="code">
+            <tr><th>ss</th><th>as</th><th>ms</th><th>rm</th><th>Name</th><th>Mode</th></tr>
+            <tr><td>00</td><td>B</td><td>1</td><td>Dy</td><td>Byte</td><td>Data</td></tr>
+            <tr><td>01</td><td>H</td><td>2</td><td>Dy</td><td>Halfword</td><td>Data</td></tr>
+            <tr><td>10</td><td>W</td><td>4</td><td>Dy</td><td>Word</td><td>Data</td></tr>
+            <tr><td>11</td><td>A</td><td>4</td><td>Ay</td><td>Address</td><td>Address</td></tr>
+        </table>
+    </figure>
+    <h2>Instructions</h2>
+    <figure>
+        <table class="code">
+            <tr><th>0123456789ABCDEF</th><th>Name</th><th>x</th><th>Rw</th><th>R-</th><th>BHW</th><th>Description</th></tr>
+            <tr><td>0000000000000000</td><td>NOP</td><td></td><td></td><td></td><td>...</td><td>No OPeration</td></tr>
+            <tr><td>0000000000010000</td><td>RFI</td><td></td><td></td><td></td><td>...</td><td>Return From Interupt</td></tr>
+            <tr><td>0000000000011000</td><td>UNLNK</td><td></td><td></td><td></td><td>...</td><td>UNLiNK</td></tr>
+            <tr><td>00000000ss110000</td><td>RFS</td><td>s</td><td></td><td>CI</td><td>.HW</td><td>Return From Subroutine</td></tr>
+            <tr><td>00000000ss111000</td><td>LNK</td><td>s</td><td></td><td>CI</td><td>.HW</td><td>LiNK</td></tr>
+            <tr><td>00000001ssmmmxxx</td><td>CMPI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>CoMPare (Immediate)</td></tr>
+            <tr><td>00000010ssmmmxxx</td><td>ADDI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>ADD (Immediate)</td></tr>
+            <tr><td>00000011ssmmmxxx</td><td>SUBI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>SUBtract (Immediate)</td></tr>
+            <tr><td>00000100ssmmmxxx</td><td>XORI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>eXclusive OR (Immediate)</td></tr>
+            <tr><td>00000101ssmmmxxx</td><td>ORI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>OR (Immediate)</td></tr>
+            <tr><td>00000110ssmmmxxx</td><td>ANDI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>AND (Immediate)</td></tr>
+            <tr><td>00000111ssmmmxxx</td><td>STI</td><td>s</td><td>mx</td><td>CI</td><td>BHW</td><td>STore (Immediate)</td></tr>
+            <tr><td>00001000ssmmmxxx</td><td>NOT</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>NOT</td></tr>
+            <tr><td>00001001ssmmmxxx</td><td>NEG</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>NEGate</td></tr>
+            <tr><td>00001010ssmmmxxx</td><td>ADC</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>AdD w/ Carry</td></tr>
+            <tr><td>00001011ssmmmxxx</td><td>SBC</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>SuBtract w/ Carry</td></tr>
+            <tr><td>00001100ssmmmxxx</td><td>CLR</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>CLeaR</td></tr>
+            <tr><td>00001101ssmmmxxx</td><td>REV</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>REVerse</td></tr>
+            <tr><td>00001110ssmmmxxx</td><td>EXT</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>EXTend sign</td></tr>
+            <tr><td>00001111ssmmmxxx</td><td>TST</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>TeST against zero</td></tr>
+            <tr><td>00010yyy00000xxx</td><td>HMULU</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>High-word MULtiply (Unsigned)</td></tr>
+            <tr><td>00010yyy00010xxx</td><td>HMULS</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>High-word MULtiply (Signed)</td></tr>
+            <tr><td>00010yyy00011xxx</td><td>MUL</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>MULtiply</td></tr>
+            <tr><td>00010yyy00100xxx</td><td>DIVU</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>DIVide (Unsigned)</td></tr>
+            <tr><td>00010yyy00101xxx</td><td>DIVS</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>DIVide (Signed)</td></tr>
+            <tr><td>00010yyy00110xxx</td><td>MODU</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>MODulo (Unsigned)</td></tr>
+            <tr><td>00010yyy00111xxx</td><td>MODS</td><td></td><td>Dy</td><td>Dx</td><td>...</td><td>MODulo (Signed)</td></tr>
+            <tr><td>00011yyy00mmmxxx</td><td>LSL</td><td></td><td>Dy</td><td>mx</td><td>B..</td><td>Logical Shift Left</td></tr>
+            <tr><td>00011yyy01mmmxxx</td><td>LSR</td><td></td><td>Dy</td><td>mx</td><td>B..</td><td>Logical Shift Right</td></tr>
+            <tr><td>00011yyy10mmmxxx</td><td>ASR</td><td></td><td>Dy</td><td>mx</td><td>B..</td><td>Arithmetic Shift Right</td></tr>
+            <tr><td>00011yyy11mmmxxx</td><td>ROR</td><td></td><td>Dy</td><td>mx</td><td>B..</td><td>ROtate Right</td></tr>
+            <tr><td>01000yyyqqqqqqqq</td><td>LDQ</td><td></td><td>Dy</td><td>Cq</td><td>...</td><td>LoaD (Quick)</td></tr>
+            <tr><td>01001yyyqqqqqqqq</td><td>CMPQ</td><td></td><td>Dy</td><td>Cq</td><td>...</td><td>CoMPare (Quick) </td></tr>
+            <tr><td>01010qqqssmmmxxx</td><td>ADDQ</td><td>s</td><td>mx</td><td>Cq</td><td>BHW</td><td>ADD (Quick)</td></tr>
+            <tr><td>01011qqqssmmmxxx</td><td>SUBQ</td><td>s</td><td>mx</td><td>Cq</td><td>BHW</td><td>SUBtract (Quick)</td></tr>
+            <tr><td>01100qqqqqmmmxxx</td><td>LSLQ</td><td></td><td>mx</td><td>Cq</td><td>..W</td><td>Logical Shift Left (Quick)</td></tr>
+            <tr><td>01101qqqqqmmmxxx</td><td>LSRQ</td><td></td><td>mx</td><td>Cq</td><td>..W</td><td>Logical Shift Right (Quick)</td></tr>
+            <tr><td>01110qqqqqmmmxxx</td><td>ASRQ</td><td></td><td>mx</td><td>Cq</td><td>..W</td><td>Arithmetic Shift Left (Quick)</td></tr>
+            <tr><td>01111qqqqqmmmxxx</td><td>RORQ</td><td></td><td>mx</td><td>Cq</td><td>..W</td><td>ROtate Right (Quick)</td></tr>
+            <tr><td>0111100000mmmxxx</td><td>RRC</td><td></td><td>mx</td><td></td><td>..W</td><td>Rotate Right through Carry</td></tr>
+            <tr><td>10000yyyssmmmxxx</td><td>LD</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>LoaD</td></tr>
+            <tr><td>10001yyyssmmmxxx</td><td>CMP</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>CoMPare</td></tr>
+            <tr><td>10010yyyssmmmxxx</td><td>ADD</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>ADD</td></tr>
+            <tr><td>10011yyyssmmmxxx</td><td>SUB</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>SUBtract</td></tr>
+            <tr><td>10100yyyssmmmxxx</td><td>XOR</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>eXclusive OR</td></tr>
+            <tr><td>10101yyyssmmmxxx</td><td>OR</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>OR</td></tr>
+            <tr><td>10110yyyssmmmxxx</td><td>AND</td><td>s</td><td>Ry</td><td>mx</td><td>BHW</td><td>AND</td></tr>
+            <tr><td>10111yyyssmmmxxx</td><td>ST</td><td>s</td><td>mx</td><td>Ry</td><td>BHW</td><td>STore</td></tr>
+            <tr><td>1110ccccqqqqqqqq</td><td>Bcc</td><td></td><td>Cq</td><td></td><td>...</td><td>Branch</td></tr>
+            <tr><td>1111ccccssmmmxxx</td><td>Jcc</td><td>s</td><td>mx</td><td></td><td>BHW</td><td>Jump</td></tr>
+        </table>
+    </figure>
+</body>
+</html>
