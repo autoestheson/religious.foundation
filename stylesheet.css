@@ -1,2 +1,27 @@
-body {max-width: 60em;margin: 0px auto}
-dt {font-weight: bold}
+body {
+    max-width: 60em;
+    margin: 0px auto;
+    overflow: scroll;
+}
+
+header {
+    text-align: center;
+    border-bottom: 3px double #000;
+}
+
+header table {
+    width: 100%;
+}
+
+.hbox {
+    padding: 13px 27px;
+    border: 1px solid #000;
+}
+
+.align-l {
+    text-align: left;
+}
+
+.align-r {
+    text-align: right;
+}
