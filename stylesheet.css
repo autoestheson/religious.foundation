@@ -13,6 +13,10 @@ header table {
     width: 100%;
 }
 
+p {
+    text-indent: 3em;
+}
+
 .hbox {
     padding: 13px 27px;
     border: 1px solid #000;
